@@ -9,6 +9,7 @@ def accept():
         if acceptXY != None:
             buttonAccept.config(text="Disabled")
             pyautogui.moveTo(acceptXY, duration = 0.5)
+            pyautogui.click()
         root.after(3000, accept)
 
 def select():
