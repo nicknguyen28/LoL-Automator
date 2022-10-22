@@ -1,4 +1,3 @@
-import sys
 import pyautogui
 import tkinter as tk
 from time import sleep
@@ -8,38 +7,48 @@ global stringBan
 stringSelect = ""
 stringBan = ""
 
+global accepted
+accepted = False
 def accept():
     if buttonAccept.config('text')[-1] == "Enabled":
         print("Searching!")
         acceptXY = pyautogui.locateCenterOnScreen("accept.png", confidence = 0.5)
         if acceptXY != None:
             buttonAccept.config(text = "Disabled")
+            accepted = True
             pyautogui.moveTo(acceptXY, duration = 0.5)
             pyautogui.click()
+            sleep(10)
+            inQueue = pyautogui.locateCenterOnScreen("greyInQueue.png", confidence = 0.5)
+            inQueueDark = pyautogui.locateCenterOnScreen("greyInQueueDark.png", confidence = 0.7)
+            if inQueue != None or inQueueDark != None:
+                buttonAccept.config(text = "Enabled")
+                accepted = False
         root.after(3000, accept)
 
 def select():
     try:
         if buttonSelect.config('text')[-1] == "Enabled":
-            print("Selecting!")
-            stringSelect = entrySelect.get()
-            searchBoxXY = pyautogui.locateCenterOnScreen("searchBox.png", confidence = 0.5)
-            greyLockInXY = pyautogui.locateCenterOnScreen("greyedOutLockIn.png", confidence = 0.5)
-            if greyLockInXY != None and searchBoxXY != None:
-                buttonSelect.config(text = "Disabled")
-                pyautogui.moveTo(searchBoxXY, duration = 0.5)
-                pyautogui.click()
-                sleep(1)
-                pyautogui.typewrite(stringSelect, interval = 0.25)
-                pyautogui.moveTo(searchBoxXY.x - 100, searchBoxXY.y - 100, duration = 0.5)
-                pyautogui.click()
-                sleep(1)
-                lockInXY = pyautogui.locateCenterOnScreen("lockIn.png", confidence = 0.5)
-                if (lockInXY != None):
-                    pyautogui.moveTo(lockInXY)
+            if accepted:
+                print("Selecting!")
+                stringSelect = entrySelect.get()
+                searchBoxXY = pyautogui.locateCenterOnScreen("searchBox.png", confidence = 0.5)
+                greyLockInXY = pyautogui.locateCenterOnScreen("greyedOutLockIn.png", confidence = 0.5)
+                if greyLockInXY != None and searchBoxXY != None:
+                    buttonSelect.config(text = "Disabled")
+                    pyautogui.moveTo(searchBoxXY, duration = 0.5)
                     pyautogui.click()
-                else:
-                    pyautogui.alert("Champion was not available. Please enter a new one.")
+                    sleep(1)
+                    pyautogui.typewrite(stringSelect, interval = 0.25)
+                    pyautogui.moveTo(searchBoxXY.x - 100, searchBoxXY.y - 100, duration = 0.5)
+                    pyautogui.click()
+                    sleep(1)
+                    lockInXY = pyautogui.locateCenterOnScreen("lockIn.png", confidence = 0.5)
+                    if (lockInXY != None):
+                        pyautogui.moveTo(lockInXY)
+                        pyautogui.click()
+                    else:
+                        pyautogui.alert("Champion was not available. Please enter a new one.")
             root.after(3000, select)
     except:
         buttonSelect.config(text = "Disabled")
@@ -48,25 +57,26 @@ def select():
 def ban():
     try:
         if buttonBan.config('text')[-1] == "Enabled":
-            print("Banning!")
-            stringBan = entryBan.get()
-            searchBoxXY = pyautogui.locateCenterOnScreen("searchBox.png", confidence = 0.5)
-            greyBanXY = pyautogui.locateCenterOnScreen("greyedOutBan.png", confidence = 0.5)
-            if greyBanXY != None and searchBoxXY != None:
-                buttonBan.config(text = "Disabled")
-                pyautogui.moveTo(searchBoxXY, duration = 0.5)
-                pyautogui.click()
-                sleep(1)
-                pyautogui.typewrite(stringBan, interval = 0.25)
-                pyautogui.moveTo(searchBoxXY.x - 100, searchBoxXY.y - 100, duration = 0.5)
-                pyautogui.click()
-                sleep(1)
-                banXY = pyautogui.locateCenterOnScreen("ban.png", confidence = 0.5)
-                if (banXY != None):
-                    pyautogui.moveTo(banXY)
+            if accepted:
+                print("Banning!")
+                stringBan = entryBan.get()
+                searchBoxXY = pyautogui.locateCenterOnScreen("searchBox.png", confidence = 0.5)
+                greyBanXY = pyautogui.locateCenterOnScreen("greyedOutBan.png", confidence = 0.5)
+                if greyBanXY != None and searchBoxXY != None:
+                    buttonBan.config(text = "Disabled")
+                    pyautogui.moveTo(searchBoxXY, duration = 0.5)
                     pyautogui.click()
-                else:
-                    pyautogui.alert("Champion was not available. Please enter a new one.")
+                    sleep(2)
+                    pyautogui.typewrite(stringBan, interval = 0.25)
+                    pyautogui.moveTo(searchBoxXY.x - 100, searchBoxXY.y - 100, duration = 0.5)
+                    pyautogui.click()
+                    sleep(2)
+                    banXY = pyautogui.locateCenterOnScreen("ban.png", confidence = 0.5)
+                    if (banXY != None):
+                        pyautogui.moveTo(banXY)
+                        pyautogui.click()
+                    else:
+                        pyautogui.alert("Champion was not available. Please enter a new one.")
             root.after(3000, select)
     except:
         buttonBan.config(text = "Disabled")
@@ -96,7 +106,7 @@ def toggleBanButton():
 def getText():
    global entry
    global string
-   string = entry.get()
+   string = entry.get().lower()
    
 
 root= tk.Tk()
