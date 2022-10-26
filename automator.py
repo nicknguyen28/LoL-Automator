@@ -146,7 +146,7 @@ def ban():
                     pyautogui.alert("Please input a champion name.")
                 else:
                     greyBanXY = None
-                    for pngName in glob.iglob("greyedOutBan/*"):
+                    for pngName in glob.iglob("greyBan/*"):
                         if greyBanXY == None:\
                             greyBanXY = pyautogui.locateCenterOnScreen(pngName, confidence = 0.6)
                         else:
