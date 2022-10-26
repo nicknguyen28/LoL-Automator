@@ -26,9 +26,9 @@ def accept():
             
         if acceptXY != None:
             buttonAccept.config(text = "Disabled")
-            pyautogui.moveTo(acceptXY, duration = 0.5)
-            pyautogui.click()
+            pyautogui.click(acceptXY, duration = 0.5)
             sleep(13)
+            print("Done waiting!")
             inQueue = pyautogui.locateCenterOnScreen("greyInQueue.png", confidence = 0.6)
             inQueueDark = pyautogui.locateCenterOnScreen("greyInQueueDark.png", confidence = 0.6)
             if inQueue != None or inQueueDark != None:
