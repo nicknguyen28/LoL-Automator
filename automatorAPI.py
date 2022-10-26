@@ -2,6 +2,8 @@ from lcu_driver import Connector
 
 connector = Connector()
 
+toBan = []
+toPick = []
 
 @connector.ready
 async def connect(connection):
@@ -18,5 +20,11 @@ async def disconnect(connection):
 async def readyCheck(connection, event):
     if event.data['state'] == 'InProgress' and event.data['playerResponse'] == 'None':
         await connection.request('post', '/lol-matchmaking/v1/ready-check/accept')
+
+@connector.ws.register('/lol-champ-select/v1/session', event_types = ('UPDATE',))
+async def readyCheck(connection, event):
+    teamIntent = []
+    for teammate in event.data['myTeam']:
+        teamIntent.append(teammate.data['championPickIntent'])
 
 connector.start()
