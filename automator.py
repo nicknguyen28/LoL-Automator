@@ -105,11 +105,11 @@ def select():
                             if name == "None":
                                 break
                             buttonSelect.config(text = "Disabled")
-                            pyautogui.click(searchBoxXY, duration = 0.5)
+                            pyautogui.click(searchBoxXY, duration = 0.3)
                             pyautogui.hotkey('ctrl', 'a')
                             pyautogui.press('backspace')
                             sleep(1)
-                            pyautogui.typewrite(name, interval = 0.25)
+                            pyautogui.typewrite(name, interval = 0.1)
                             pyautogui.click(aboveChampXY.x - 65, aboveChampXY.y + 65, duration = 0.5)
                             lockInXY = None
                             for pngName in glob.iglob("lockIn/*"):
@@ -117,7 +117,7 @@ def select():
                                     lockInXY = pyautogui.locateCenterOnScreen(pngName, confidence = 0.6)
                                 else:
                                     print("Locked in champ!")
-                                    pyautogui.click(lockInXY, duration = 0.5)
+                                    pyautogui.click(lockInXY, duration = 0.3)
                                     selected = True
                                     break
             root.after(2000, select)
@@ -176,11 +176,11 @@ def ban():
                             if name == "None":
                                 break
                             buttonBan.config(text = "Disabled")
-                            pyautogui.click(searchBoxXY, duration = 0.5)
+                            pyautogui.click(searchBoxXY, duration = 0.3)
                             pyautogui.hotkey('ctrl', 'a')
                             pyautogui.press('backspace')
                             sleep(1)
-                            pyautogui.typewrite(name, interval = 0.25)
+                            pyautogui.typewrite(name, interval = 0.1)
                             pyautogui.click(aboveChampXY.x - 65, aboveChampXY.y + 65, duration = 0.5)
                             banXY = None
                             for pngName in glob.iglob("ban/*"):
@@ -188,7 +188,7 @@ def ban():
                                     banXY = pyautogui.locateCenterOnScreen(pngName, confidence = 0.6)
                                 else:
                                     print("Locked in ban!")
-                                    pyautogui.click(banXY, duration = 0.5)
+                                    pyautogui.click(banXY, duration = 0.3)
                                     banned = True
                                     break
             root.after(2000, ban)
