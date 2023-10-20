@@ -1,5 +1,5 @@
 # LoL-Automator
-This is a program that can automatically accept games, select champions, and ban champions. <br>
+This is a program for the video League of Legends that can automatically accept games, select champions, and ban champions. <br>
 Run the program by opening ```automator.exe```.
 
 ## Functionalities:
